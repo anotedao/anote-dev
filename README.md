@@ -1,2 +1,2 @@
-# anote-dev
-Anote Dev UI
+# anote-today
+Anote.Today Ads Tool
