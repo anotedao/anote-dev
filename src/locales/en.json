@@ -1,8 +1,8 @@
 {
   "lang": "en",
   "html": {
-    "title": "Anote Today",
-    "description": "Anote Today | Anote crypto currency can be mined, sent, received, exchanged or sold and used right from the start to purchase ads on our Telegram ad channel - AnonShout.",
+    "title": "Anote Dev",
+    "description": "Anote Dev | Anote crypto currency can be mined, sent, received, exchanged or sold and used right from the start to purchase ads on our Telegram ad channel - AnonShout.",
     "url": "https://anote.digital",
     "logoUrl": "./img/logo.png",
     "fbImg": "https://www.anonutopia.com/static/img/fb.png?v=1.0.0"
@@ -21,11 +21,11 @@
   "password": "Password",
   "repeatPassword": "Repeat Password",
   "main": {
-    "helpUrl": "https://t.me/anotedigital"
+    "helpUrl": "https://t.me/AnoteDAO"
   },
   "home": {
     "seedWarning": "Save your seed words for backup purposes. You can find them in settings. <strong><u>You are responsible for your account.</u></strong>",
-    "tab1": "Your Ad",
+    "tab1": "Create Token",
     "tab2": "Auctions",
     "balance": "Balance",
     "earnings": "Accumulated earnings",
@@ -37,7 +37,7 @@
     "aintCurrency": "AINTs",
     "aintEarnings": "Accumulated AINT earnings",
     "aintCollectEarnings": "Withdraw",
-    "adTitle": "Edit Your Ad",
+    "createTitle": "Create Your Token",
     "auctionsTitle": "Anote Today Ad Auction",
     "balanceAINTs": "AINT Balance",
     "mineMessage": "Anote can be mined in a simple way using Telegram messenger. You can read more about mining <a href=\"https://www.anonutopia.com/beginner\" target=\"_blank\">here</a>."
@@ -120,7 +120,8 @@
     },
     "send": {
       "notEnough": "You don't have enough on your account, the fee is 0.001 Anotes.",
-      "bothRequired": "Both fields are required."
+      "bothRequired": "Both fields are required.",
+      "allRequired": "All fields are required."
     },
     "exchange": {
       "currenciesSame": "Currencies can't be same.",

@@ -362,6 +362,62 @@ class Wallet {
         }
     }
 
+    async createToken() {
+        var name = $("#tokenName").val();
+        var decimals = $("#decimals").val();
+        var decimalsInt = 0;
+        var quantityInt = 0;
+        if (decimals != undefined) {
+            decimalsInt = parseInt(decimals?.toString());
+        }
+        var quantity = $("#quantity").val();
+        if (quantity != undefined) {
+            quantityInt = parseInt(quantity?.toString()) * (10 ** decimalsInt);
+        }
+        var description = $("#tokenDescription").val();
+        var reissuable = $('#reissuableyes').is(':checked') 
+
+        if (name?.toString().length == 0 || decimals?.toString().length == 0 || quantity?.toString().length == 0 || description?.toString().length == 0) {
+            $("#pMessage9").html(t.send.allRequired);
+            $("#pMessage9").fadeIn(function(){
+                setTimeout(function(){
+                    $("#pMessage9").fadeOut();
+                }, 2000);
+            });
+            navigator.vibrate(500);
+        } else {
+            try {
+                const tokenData = { name: name, decimals: decimalsInt, quantity: quantityInt, reissuable: reissuable, description: description };
+
+                console.log(tokenData);
+
+                const [tx] = await this.signer
+                .issue(tokenData)
+                .broadcast();
+
+                $("#tokenName").val("");
+                $("#decimals").val("");
+                $("#quantity").val("");
+                $("#tokenDescription").val("");
+
+                $("#pMessage4").fadeIn(function(){
+                    setTimeout(function(){
+                        $("#pMessage4").fadeOut();
+                    }, 500);
+                });
+            } catch (e: any) {
+                $("#pMessage9").html(t.error);
+                $("#pMessage9").fadeIn(function(){
+                    setTimeout(function(){
+                        $("#pMessage9").fadeOut();
+                    }, 2000);
+                });
+                console.log(e.message)
+                navigator.vibrate(500);
+            }
+        }
+    }
+
     populateAd() {
         $.getJSON("https://node.anote.digital/addresses/data/" + this.address + "?key=%25s__anoteTodayAd", function( data ) {
             if (data.length > 0) {
@@ -893,6 +949,10 @@ $("#buttonChangePass").on( "click", function() {
 
 $("#saveAdButton").on( "click", function() {
     wallet.saveAd();
+});
+
+$("#createToken").on( "click", function() {
+    wallet.createToken();
 });
 
 $("#bidButton").on( "click", function() {

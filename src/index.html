@@ -188,63 +188,53 @@
                <li class="nav-item">
                   <a class="nav-link active fw-bold" href="javascript:void(0)" id="tabButton1" data-t>home.tab1</a>
                 </li>
-                <li class="nav-item">
-                  <a class="nav-link fw-bold" href="javascript:void(0)" id="tabButton2" data-t>home.tab2</a>
-                </li>
             </ul>
             <div id="tab1" style="padding: 0;">
                <div class="bg-light p-md-5 p-3 border shadow-lg mb-5" style="color: #515151;">
                   <div class="row">
                      <div class="col-0 col-lg-2"></div>
                      <div class="col-12 col-lg-8">
-                        <h5 class="py-2 text-start text-secondary border-bottom mb-3"><strong data-t>home.adTitle</strong></h5>
+                        <h5 class="py-2 text-start text-secondary border-bottom mb-3"><strong data-t>home.createTitle</strong></h5>
                         <div class="mb-3">
-                           <label for="todayText" class="form-label"><strong>Ad Text</strong></label>
-                           <textarea class="form-control" id="todayText" rows="12" style="resize: none;"></textarea>
+                           <label for="tokenName" class="form-label"><strong>Token Name</strong></label>
+                           <input type="text" class="form-control" id="tokenName">
                         </div>
                         <div class="mb-3">
-                           <label for="todayLink" class="form-label"><strong>Ad Link</strong></label>
-                           <input type="text" class="form-control" id="todayLink" placeholder="https://anote.digital">
+                           <label for="decimals" class="form-label"><strong>Decimals</strong></label>
+                           <input type="text" class="form-control" id="decimals">
                         </div>
-                        <div id="pMessage4" class="form-text text-success mt-3 mb-2" style="display: none;">Ad is successfully saved.</div>
+                        <div class="mb-3">
+                           <label for="quantity" class="form-label"><strong>Quantity</strong></label>
+                           <input type="text" class="form-control" id="quantity">
+                        </div>
+                        <div class="mb-3">
+                           <label for="reissuable" class="form-label"><strong>Reissuable</strong></label>
+                           <div class="form-check">
+                              <input class="form-check-input" type="radio" name="reissuable" id="reissuableyes" checked>
+                              <label class="form-check-label" for="reissuableyes">
+                                Reissuable
+                              </label>
+                            </div>
+                            <div class="form-check">
+                              <input class="form-check-input" type="radio" name="reissuable" id="reissuablenot>
+                              <label class="form-check-label" for="reissuablenot">
+                                Not Reissuable
+                              </label>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                           <label for="todayText" class="form-label"><strong>Description</strong></label>
+                           <textarea class="form-control" id="tokenDescription" rows="4" style="resize: none;"></textarea>
+                        </div>
+                        <div id="pMessage4" class="form-text text-success mt-3 mb-2" style="display: none;">Your token is successfully created.</div>
                         <div id="pMessage9" class="form-text text-danger mt-3 mb-2" style="display: none;"></div>
                         <div class="d-grid mt-4">
-                           <button type="button" class="btn btn-success btn-lg btn-block" id="saveAdButton">
-                              <i class="bi bi-save"></i>&nbsp;&nbsp;Save Ad
+                           <button type="button" class="btn btn-success btn-lg btn-block" id="createToken">
+                              <i class="bi bi-save"></i>&nbsp;&nbsp;Create Token
                            </button>
                         </div>
                      </div>
                      <div class="col-0 col-lg-2"></div>
-                  </div>
-               </div>
-            </div>
-            <div id="tab2" style="display: none; padding: 0;">
-               <div class="bg-light p-md-5 p-3 border shadow-lg mb-5" style="color: #515151;">
-                  <div class="row">
-                     <div class="col-0 col-lg-3"></div>
-                     <div class="col-12 col-lg-6">
-                        <h5 class="py-2 text-start text-secondary border-bottom mb-3"><strong data-t>home.auctionsTitle</strong></h5>
-                        <div class="mb-3">
-                           <label for="bidAmount" class="form-label"><strong>Your Bid</strong></label>
-                           <input type="text" class="form-control" id="bidAmount" placeholder="">
-                        </div>
-                        <div id="pMessage10" class="form-text text-success mb-3" style="display: none; margin-top: 0;">Your bid is successfully placed.</div>
-                        <div id="pMessage11" class="form-text text-danger mb-3" style="display: none; margin-top: 0;"></div>
-                        <div class="row">
-                           <div class="d-grid">
-                              <button type="button" class="btn btn-success btn-lg btn-block" id="bidButton">
-                                 <i class="bi bi-credit-card-fill"></i>&nbsp;&nbsp;Bid For Ad
-                              </button>
-                           </div>
-                        </div>
-                        <div class="mt-3">
-                           <label class="form-label mb-3"><strong>Existing Bids</strong></label>
-                           <ol class="list-group list-group-numbered" id="bidList">
-                              
-                           </ol>
-                        </div>
-                     </div>
-                     <div class="col-0 col-lg-3"></div>
                   </div>
                </div>
             </div>
