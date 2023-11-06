@@ -451,6 +451,29 @@ class Wallet {
         });
     }
 
+    populateTokens() {
+        $.getJSON("https://node.anote.digital/assets/balance/" + this.address, function(data) {
+            if (data.balances.length > 0) {
+                $("#notokens").hide();
+                $("#listtokens").show();
+            }
+
+            console.log(data.balances[0]);
+
+            $.each(data.balances, function(i, b) {
+                $("#listtokens").append('<a href="javascript: void null;" class="list-group-item list-group-item-action" onclick="wallet.list(\'' + b.assetId + '\');">List ' + b.issueTransaction.name + '</a>');
+            });
+        });
+    }
+
+    test() {
+        alert("fdsafsa");
+    }
+
+    list(assetId) {
+        alert(assetId);
+    }
+
     async bid() {
         var amount = $("#bidAmount").val();
 
@@ -659,6 +682,8 @@ class Wallet {
         await wallet.populateAd();
 
         await wallet.populateBids();
+
+        await wallet.populateTokens();
     }
 
     private accountExists():boolean {
@@ -774,6 +799,7 @@ var mobileNodeUrl = "https://mobile.anote.digital";
 var t;
 
 const wallet = new Wallet();
+window["wallet"] = wallet;
 
 // Button bindings
 

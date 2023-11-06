@@ -187,7 +187,10 @@
             <ul class="nav nav-tabs mb-5 mt-4">
                <li class="nav-item">
                   <a class="nav-link active fw-bold" href="javascript:void(0)" id="tabButton1" data-t>home.tab1</a>
-                </li>
+               </li>
+               <li class="nav-item">
+                  <a class="nav-link fw-bold" href="javascript:void(0)" id="tabButton2" data-t>List Token</a>
+               </li>
             </ul>
             <div id="tab1" style="padding: 0;">
                <div class="bg-light p-md-5 p-3 border shadow-lg mb-5" style="color: #515151;">
@@ -233,6 +236,22 @@
                               <i class="bi bi-save"></i>&nbsp;&nbsp;Create Token
                            </button>
                         </div>
+                     </div>
+                     <div class="col-0 col-lg-2"></div>
+                  </div>
+               </div>
+            </div>
+
+            <div id="tab2" style="padding: 0; display: none;">
+               <div class="bg-light p-md-5 p-3 border shadow-lg mb-5" style="color: #515151;">
+                  <div class="row">
+                     <div class="col-0 col-lg-2"></div>
+                     <div class="col-12 col-lg-8">
+                        <h5 class="py-2 text-start text-secondary border-bottom mb-3"><strong data-t>List Your Token</strong></h5>
+                        <p onclick="wallet.test();" id="notokens">You don't have any unlisted tokens.</p>
+                        <div class="list-group" id="listtokens" style="display: none;">
+                           
+                         </div>
                      </div>
                      <div class="col-0 col-lg-2"></div>
                   </div>
