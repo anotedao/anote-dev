@@ -451,27 +451,76 @@ class Wallet {
         });
     }
 
-    populateTokens() {
+    async populateTokens() {
+        var tokenData;
+        await $.getJSON("https://node.anote.digital/addresses/data/3ADqaKZpZrEEBSjZKqNemWrG3jzYUdUUYpi", function(data) {
+            tokenData = data;
+        });
+
         $.getJSON("https://node.anote.digital/assets/balance/" + this.address, function(data) {
-            if (data.balances.length > 0) {
-                $("#notokens").hide();
-                $("#listtokens").show();
-            }
-
-            console.log(data.balances[0]);
-
             $.each(data.balances, function(i, b) {
-                $("#listtokens").append('<a href="javascript: void null;" class="list-group-item list-group-item-action" onclick="wallet.list(\'' + b.assetId + '\');">List ' + b.issueTransaction.name + '</a>');
+                var tokenListed = wallet.isTokenListed(tokenData, b.assetId);
+                if (!tokenListed){
+                    $("#notokens").hide();
+                    $("#listtokens").show();
+
+                    $("#listtokens").append('<a href="javascript: void null;" class="list-group-item list-group-item-action" onclick="wallet.list(\'' + b.assetId + '\');">List ' + b.issueTransaction.name + '</a>');
+                }
             });
         });
     }
 
-    test() {
-        alert("fdsafsa");
+    isTokenListed(data, token_id) {
+        var tokenListed = false;
+        $.each(data, function(i, t){
+            if (t.key == token_id) {
+                tokenListed =  true;
+            }
+        });
+        return tokenListed;
     }
 
-    list(assetId) {
-        alert(assetId);
+    async calculatePrice() { 
+        var priceInAnote = 0;
+        await $.getJSON("https://node.anote.digital/addresses/data/3ANmnLHt8mR9c36mdfQVpBtxUs8z1mMAHQW/%25s__priceAnote", function (data) {
+
+            priceInAnote = 30 * 100000000 / data.value;
+        });
+
+        return priceInAnote;
+    }
+
+    async list(assetId) {
+        var priceInAnote = await this.calculatePrice();
+        var priceInt = Math.ceil(priceInAnote * 100000000);
+        
+        try {
+            const [tx] = await this.signer.invoke({
+                dApp: "3ADqaKZpZrEEBSjZKqNemWrG3jzYUdUUYpi",
+                call: { function: "list", args: [{type: 'string', value: assetId}] },
+                fee: 500000,
+                payment: [{
+                    assetId: 'WAVES',
+                    amount: priceInt,
+                }],
+            }).broadcast();
+    
+            $("#listSuccess").fadeIn(function(){
+                setTimeout(function(){
+                    $("#listSuccess").fadeOut(function() {
+                        $("#listtokens").hide();
+                        $("#notokens").show();
+                    });
+                }, 2000);
+            });
+        } catch(e: any) {
+            $("#listError").html(e.message);
+            $("#listError").fadeIn(function(){
+                setTimeout(function(){
+                    $("#listError").fadeOut();
+                }, 2000);
+            });
+        }
     }
 
     async bid() {
