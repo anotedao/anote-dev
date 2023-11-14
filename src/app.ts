@@ -480,6 +480,11 @@ class Wallet {
         return tokenListed;
     }
 
+    async populatePrice() {
+        var priceInAnote = await this.calculatePrice();
+        $("#listingPrice").html(priceInAnote.toFixed(3));
+    }
+
     async calculatePrice() { 
         var priceInAnote = 0;
         await $.getJSON("https://node.anote.digital/addresses/data/3ANmnLHt8mR9c36mdfQVpBtxUs8z1mMAHQW/%25s__priceAnote", function (data) {
@@ -733,6 +738,8 @@ class Wallet {
         await wallet.populateBids();
 
         await wallet.populateTokens();
+
+        await wallet.populatePrice();
     }
 
     private accountExists():boolean {
