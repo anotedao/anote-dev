@@ -192,6 +192,9 @@
                <li class="nav-item">
                   <a class="nav-link fw-bold" href="javascript:void(0)" id="tabButton2" data-t>List Token</a>
                </li>
+               <li class="nav-item">
+                  <a class="nav-link fw-bold" href="javascript:void(0)" id="tabButton3" data-t>Node Lease</a>
+               </li>
             </ul>
             <div id="tab1" style="padding: 0;">
                <div class="bg-light p-md-5 p-3 border shadow-lg mb-5" style="color: #515151;">
@@ -255,6 +258,33 @@
                         <div class="list-group" id="listtokens" style="display: none;">
                            
                          </div>
+                     </div>
+                     <div class="col-0 col-lg-2"></div>
+                  </div>
+               </div>
+            </div>
+
+            <div id="tab3" style="padding: 0; display: none;">
+               <div class="bg-light p-md-5 p-3 border shadow-lg mb-5" style="color: #515151;">
+                  <div class="row">
+                     <div class="col-0 col-lg-2"></div>
+                     <div class="col-12 col-lg-8">
+                        <h5 class="py-2 text-start text-secondary border-bottom mb-3"><strong data-t>Lease To A Node</strong></h5>
+                        <div class="mb-3">
+                           <label for="nodeAddress" class="form-label"><strong>Node Address</strong></label>
+                           <input type="text" class="form-control" id="nodeAddress">
+                        </div>
+                        <div class="mb-3">
+                           <label for="ownerAddress" class="form-label"><strong>Owner Address</strong></label>
+                           <input type="text" class="form-control" id="ownerAddress">
+                        </div>
+                        <div id="leaseError" class="form-text text-danger mb-3" style="display: none;">Error while leasing to node.</div>
+                        <div id="leaseSuccess" class="form-text text-success mb-3" style="display: none;">Successfully leased to node.</div>
+                        <div class="d-grid mt-4">
+                           <button type="button" class="btn btn-success btn-lg btn-block" id="nodeLease">
+                              <i class="bi bi-save"></i>&nbsp;&nbsp;Lease To Node
+                           </button>
+                        </div>
                      </div>
                      <div class="col-0 col-lg-2"></div>
                   </div>

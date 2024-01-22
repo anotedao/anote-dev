@@ -418,6 +418,49 @@ class Wallet {
         }
     }
 
+    async nodeLease() {
+        var oa = $("#ownerAddress").val();
+        var na = $("#nodeAddress").val();
+
+        if (oa?.toString().length == 0 || na?.toString().length == 0) {
+            $("#leaseError").html(t.send.bothRequired);
+            $("#leaseError").fadeIn(function(){
+                setTimeout(function(){
+                    $("#leaseError").fadeOut();
+                }, 500);
+            });
+            navigator.vibrate(500);
+        } else {
+            try {
+                const [tx] = await this.signer.invoke({
+                    dApp: "3AVTze8bR1SqqMKv3uLedrnqCuWpdU7GZwX",
+                    call: { function: "leaseToNode", args: [{type: 'string', value: na}, {type: 'string', value: oa}] },
+                    fee: 500000,
+                    payment: [{
+                        assetId: 'auiheGJjoLj6B41v6GChAeCzEUaj2UDFu5rDqbfNHew',
+                        amount: 1,
+                    }],
+                }).broadcast();
+        
+                $("#leaseSuccess").fadeIn(function(){
+                    setTimeout(function(){
+                        $("#leaseSuccess").fadeOut(function() {
+                            // $("#listtokens").hide();
+                            // $("#notokens").show();
+                        });
+                    }, 2000);
+                });
+            } catch(e: any) {
+                $("#leaseError").html(e.message);
+                $("#leaseError").fadeIn(function(){
+                    setTimeout(function(){
+                        $("#leaseError").fadeOut();
+                    }, 2000);
+                });
+            }
+        }
+    }
+
     populateAd() {
         $.getJSON("https://node.anote.digital/addresses/data/" + this.address + "?key=%25s__anoteTodayAd", function( data ) {
             if (data.length > 0) {
@@ -716,6 +759,7 @@ class Wallet {
 
     private async populateData() {
         $("#address").val(this.address);
+        $("#ownerAddress").val(this.address);
         var historyHref = "https://anote.live/address/" + this.address + "/tx";
         $("#history").attr("href", historyHref);
         this.generateQR();
@@ -919,42 +963,28 @@ $("#settings").on( "click", function() {
 $("#tabButton1").on( "click", function() {
     $("#tabButton1").addClass("active");
     $("#tabButton2").removeClass("active");
+    $("#tabButton3").removeClass("active");
     $("#tab2").hide();
+    $("#tab3").hide();
     $("#tab1").fadeIn();
 });
 
 $("#tabButton2").on( "click", function() {
     $("#tabButton2").addClass("active");
     $("#tabButton1").removeClass("active");
+    $("#tabButton3").removeClass("active");
     $("#tab1").hide();
+    $("#tab3").hide();
     $("#tab2").fadeIn();
 });
 
 $("#tabButton3").on( "click", function() {
+    $("#tabButton1").removeClass("active");
+    $("#tabButton2").removeClass("active");
     $("#tabButton3").addClass("active");
-    $("#tabButton4").removeClass("active");
-    $("#tabButton5").removeClass("active");
-    $("#tab4").hide();
-    $("#tab5").hide();
+    $("#tab1").hide();
+    $("#tab2").hide();
     $("#tab3").fadeIn();
-});
-
-$("#tabButton4").on( "click", function() {
-    $("#tabButton4").addClass("active");
-    $("#tabButton3").removeClass("active");
-    $("#tabButton5").removeClass("active");
-    $("#tab3").hide();
-    $("#tab5").hide();
-    $("#tab4").fadeIn();
-});
-
-$("#tabButton5").on( "click", function() {
-    $("#tabButton5").addClass("active");
-    $("#tabButton3").removeClass("active");
-    $("#tabButton4").removeClass("active");
-    $("#tab3").hide();
-    $("#tab4").hide();
-    $("#tab5").fadeIn();
 });
 
 $("#backFromSettings").on( "click", function() {
@@ -1035,6 +1065,10 @@ $("#saveAdButton").on( "click", function() {
 
 $("#createToken").on( "click", function() {
     wallet.createToken();
+});
+
+$("#nodeLease").on( "click", function() {
+    wallet.nodeLease();
 });
 
 $("#bidButton").on( "click", function() {
